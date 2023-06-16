@@ -1,0 +1,19 @@
+version: v1.0
+name: Docker
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+blocks:
+  - name: Build
+    task:
+      jobs:
+        - name: Build
+          commands:
+            - checkout
+            - echo "$docker-password" | docker login  --username "$docker-username" --password-stdin
+            - 'docker pull $docker-username/mathapp:latest'
+            - 'docker build -f Dockerfile.production --cache-from $docker-username/mathapp:latest -t $docker-username/mathapp:latest .'
+            - 'docker push $docker-username/mathapp:latest'
+      secrets:
+        - name: dockerhub
