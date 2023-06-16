@@ -11,9 +11,9 @@ blocks:
         - name: Build
           commands:
             - checkout
-            - echo "$docker-password" | docker login  --username "$docker-username" --password-stdin
-            - 'docker pull $docker-username/mathapp:latest'
-            - 'docker build -f Dockerfile.production --cache-from $docker-username/mathapp:latest -t $docker-username/mathapp:latest .'
-            - 'docker push $docker-username/mathapp:latest'
+            - echo "$DOCKER_PASSWORD" | docker login  --username "$DOCKER_USERNAME" --password-stdin
+            - 'docker pull $DOCKER_USERNAME/mathapp:latest'
+            - 'docker build -f Dockerfile.production --cache-from $DOCKER_USERNAME/mathapp:latest -t $docker-username/mathapp:latest .'
+            - 'docker push $DOCKER_USERNAME/mathapp:latest'
       secrets:
         - name: dockerhub
